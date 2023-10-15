@@ -1,6 +1,6 @@
 # Keep
 
-`<Write introduction here>`
+`stfu motherf***er`
 
 ## Checklist
 
