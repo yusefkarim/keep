@@ -1,5 +1,5 @@
 .PHONY: build upload test check clean
-	
+
 install:
 	python -m pip install .
 
@@ -15,14 +15,14 @@ upload: clean build
 test:
 	python -m unittest discover tests
 
-format-check: 
+format-check:
 	black --check ZeroFine
 
 type-check:
 	mypy --config mypy.ini ZeroFine
 
 check: type-check format-check
-	
+
 clean:
 	# Clean up build artifacts.
 	-rm -R build dist ZeroFine.egg-info
