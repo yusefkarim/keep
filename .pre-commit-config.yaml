@@ -15,9 +15,21 @@ repos:
   - repo: local
     hooks:
       - id: unittests
-        name: run unit tests
-        entry: python -m unittest discover
+        name: run make check test
+        entry: make test
         language: system
         pass_filenames: false
-        args: ["discover"]
+      - id: format-check
+        name: run make check format
+        entry: make format-check
+        language: system
+        pass_filenames: false
+      - id: type-check
+        name: run make check type
+        entry: make type-check
+        language: system
+        pass_filenames: false
+
+
+      
 
