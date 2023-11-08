@@ -12,7 +12,7 @@ For completing the tasks below, you can refer to [Scapy](https://github.com/secd
 
   - [x] Update this README, replacing `<Write introduction here>` with a proper (brief) introduction about your app and what it will do. Try your best to be grammatically correct.
 
-  - [x] Create a folder called `keep` with an `__init__.py` file inside it, but a simple print statement there. The `keep` folder will be where all your main project code exists.
+  - [x] Create a folder called `model` with an `__init__.py` file inside it, but a simple print statement there. The `model` folder will be where all your main project code exists.
   - [x] Create a `setup.py` file. Again, see aforementioned project examples linked above for ideas and refer to [Packaging and distributing projects](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/)
 - [x] Testing skeleton
   - Create a folder called `tests` with a dummy test inside it, this test should be run when you execute `python -m unittest discover tests`
