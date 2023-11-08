@@ -1,31 +1,33 @@
-.PHONY: build upload test check clean
-
-install:
-	python -m pip install .
-
-dev-install:
-	python -m pip install -e .[dev]
-
-build:
-	python -m build
-
-upload: clean build
-	twine upload dist/*
+LOCAL_TAG:=$(shell date +"%Y-%m-%d-%H-%M")
+LOCAL_IMAGE_NAME:=xgoals_prediction_model:${LOCAL_TAG}
 
 test:
-	python -m unittest discover tests
+	pytest tests/
 
 format-check:
-	black --check ZeroFine
+	isort .
+	black --check model
+	pylint --recursive=y .
 
 type-check:
-	mypy --config mypy.ini ZeroFine
+	mypy --config mypy.ini model
 
-check: type-check format-check
+check:
+	format-check type-check 	
 
-clean:
-	# Clean up build artifacts.
-	-rm -R build dist ZeroFine.egg-info
-	# Clean up bytecode leftovers.
-	find . -type f -name '*.pyc' -print0 | xargs -0 rm
-	find . -type d -name '__pycache__' -print0 | xargs -0 rmdir
+train: 
+	check test
+	bash src/pipeline/train.sh
+
+build: train
+	docker build -t ${LOCAL_IMAGE_NAME} .
+
+integration_test: build
+	LOCAL_IMAGE_NAME=${LOCAL_IMAGE_NAME} bash integration_test/run.sh
+
+publish: build integration_test
+	LOCAL_IMAGE_NAME=${LOCAL_IMAGE_NAME} bash scripts/publish.sh
+
+setup:
+	pipenv install --dev
+	pre-commit install
