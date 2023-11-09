@@ -5,7 +5,7 @@ on:
     branches:
       - 'main'
     paths:
-      - 'infrastructure/**'
+      - 'model/**'
       - 'src/pipeline/**'
 
 # env:
@@ -27,13 +27,20 @@ jobs:
       # - name: Install dependencies
       #   run: pip install pipenv && pipenv install --dev
 
-      - name: Run Makefile
-        run: make all      
+      - name: Install dependencies
+        run: pip install pipenv && make setup
+
+      - name: Run Unit tests
+        run: make test
+
+      - name: Lint
+        run: make format-check
+
 
       # - name: Configure AWS Credentials
       #   uses: aws-actions/configure-aws-credentials@v1
       #   with:
-      #     aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+      #     aws-access-key-id: ${{ env.AWS_ACgit add .github/workflows/test.yml CESS_KEY_ID }}
       #     aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
       #     aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
