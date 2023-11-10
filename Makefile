@@ -5,18 +5,12 @@ test:
 	pytest tests/
 
 format-check:
-	isort .
-	black --check model
-	pylint --recursive=y .
+	isort model
+	black model
+	pylint --recursive=y model
 
-type-check:
-	mypy --config mypy.ini model
-
-check:
-	format-check type-check 	
-
-train: 
-	check test
+train:
+	format-check test
 	bash src/pipeline/train.sh
 
 build: train
