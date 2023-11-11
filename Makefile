@@ -1,3 +1,4 @@
+
 LOCAL_TAG:=$(shell date +"%Y-%m-%d-%H-%M")
 LOCAL_IMAGE_NAME:=xgoals_prediction_model:${LOCAL_TAG}
 
@@ -25,3 +26,4 @@ publish: build integration_test
 setup:
 	pipenv install --dev
 	pre-commit install
+
