@@ -25,5 +25,3 @@ publish: build integration_test
 
 setup:
 	pipenv install --dev
-	pre-commit install
-
