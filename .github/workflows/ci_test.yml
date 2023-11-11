@@ -31,7 +31,7 @@ jobs:
         run: pip install pipenv && make setup
 
       - name: Run Unit tests
-        run: make test
+        run: pipenv run pytest
 
       - name: Lint
         run: make format-check
