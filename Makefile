@@ -25,3 +25,4 @@ publish: build integration_test
 
 setup:
 	pipenv install --dev
+	pipenv shell
