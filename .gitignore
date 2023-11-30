@@ -163,6 +163,7 @@ cython_debug/
 
 # trying to negate a file inside an ignored directory won't work
 ZeroFine.md
+gtsrb-german-traffic-sign/
 
 .DS_Store
 
