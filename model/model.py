@@ -1,18 +1,14 @@
 # Functions
-import tqdm
-
-import torch
-import torch.nn as nn
-
-from typing import Any,Tuple,Optional,Callable
-
-import pathlib
 import csv
+import pathlib
+from typing import Tuple, Optional, Callable
 
 import PIL
+import torch
+import torch.nn as nn
+import tqdm
 from torch.optim import Adam
 from torch.utils.data import Dataset, DataLoader
-
 from torchvision.transforms import v2
 
 if torch.cuda.is_available():
@@ -21,7 +17,6 @@ if torch.cuda.is_available():
 else:
     device = torch.device("cpu")
     print("running on the CPU")
-
 
 
 class GTSRB(Dataset):
@@ -50,6 +45,7 @@ class GTSRB(Dataset):
         if self.transform is not None:
             sample = self.transform(sample)
         return sample, classId
+
 
 # Net
 class GTSRB_MODEL(nn.Module):
@@ -86,7 +82,6 @@ class GTSRB_MODEL(nn.Module):
         self.l3 = nn.Linear(128, output_dim)
 
     def forward(self, input):
-
         conv = self.conv1(input)
         conv = self.conv2(conv)
         batchnorm = self.relu(self.batchnorm1(conv))
@@ -113,24 +108,24 @@ class GTSRB_MODEL(nn.Module):
 
         return output
 
-
     # Transforms
+
+
 transforms = v2.Compose([
-    v2.Resize(size=(50,50)),
+    v2.Resize(size=(50, 50)),
     v2.ToImageTensor(),
 
 ])
 
-test_dataset = GTSRB(root='/home/amber/Documents/sign/gtsrb-german-traffic-sign',split='test',transform=transforms)
-test_dataloader = DataLoader(dataset = test_dataset)
+test_dataset = GTSRB(root='/home/amber/Documents/sign/gtsrb-german-traffic-sign', split='test', transform=transforms)
+test_dataloader = DataLoader(dataset=test_dataset)
 
-
-INPUT_DIM = 3*50*50
+INPUT_DIM = 3 * 50 * 50
 OUTPUT_DIM = 43
 LEARNING_RATE = 0.0008
 
 # Loading model
-trained_model = GTSRB_MODEL(INPUT_DIM,OUTPUT_DIM).to(device)
+trained_model = GTSRB_MODEL(INPUT_DIM, OUTPUT_DIM).to(device)
 
 filepath = f'/home/amber/Documents/sign/model/checkpoint.pkl'
 
@@ -141,11 +136,9 @@ optimizer = Adam(params=trained_model.parameters(), lr=LEARNING_RATE)
 
 optimizer.load_state_dict(checkpoint['optimizer_state_dict'])  # 加载优化器参数
 
-
 for parameter in trained_model.parameters():
     parameter.requires_grad = False
 trained_model.eval()
-
 
 from sklearn.metrics import accuracy_score
 
@@ -165,4 +158,3 @@ with tqdm.tqdm(colour='red', total=len(test_dataloader)) as progress:
 
             progress.desc = f'Test Accuracy : {accuracy_score(y_true, y_pred)} '
             progress.update(1)
-
