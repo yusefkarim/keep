@@ -1,6 +1,9 @@
 # ZeroFine
 
+
+
 Coming soon...
+
 
 ## Checklist
 
@@ -18,3 +21,4 @@ For completing the tasks below, you can refer to [Scapy](https://github.com/secd
 4. [ ] Setup Github actions for the project, the CI should do format check, type check, and run tests. PRs should only be allowed to be merged if all actions pass.
 5. [ ] Start writing actual code, maybe start with a technical spec describing what you are actually trying to achieve and some of the libraries/frameworks you already know will be needed
 6. [ ] Write unit tests at the same time you write production code (test-driven development)
+
