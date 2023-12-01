@@ -258,7 +258,7 @@ def load_checkpoint(filepath):
     return model
 
 
-trained_model = load_checkpoint('/home/amber/Documents/sign/model/checkpoint.pkl')
+trained_model = load_checkpoint('/checkpoint/checkpoint.pkl')
 
 test_dataset = GTSRB(root='/home/amber/Documents/sign/gtsrb-german-traffic-sign', split='test', transform=transforms)
 test_dataloader = DataLoader(dataset=test_dataset)
